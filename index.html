@@ -3,7 +3,166 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Job Application Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .active-tab {
+        border-bottom: 2px solid #2563eb;
+        color: #2563eb;
+        font-weight: 600;
+      }
+      .dark .active-tab {
+        border-bottom: 2px solid #60a5fa;
+        color: #60a5fa;
+      }
+    </style>
   </head>
-  <body></body>
+  <body
+    class="bg-[#F8FAFC] dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300"
+  >
+    <nav
+      class="bg-white dark:bg-slate-800 shadow-sm py-4 px-6 mb-8 transition-colors duration-300"
+    >
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <h1
+          class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-white"
+        >
+          Job Application Tracker
+        </h1>
+        <button
+          id="theme-toggle"
+          class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-xl p-2 transition-colors"
+        >
+          <i id="theme-toggle-icon" class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col justify-center transition-colors"
+        >
+          <h3
+            class="text-lg font-medium text-slate-500 dark:text-slate-400 mb-2"
+          >
+            Total
+          </h3>
+          <p
+            id="total-count"
+            class="text-4xl font-bold text-slate-800 dark:text-white"
+          >
+            0
+          </p>
+        </div>
+
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col justify-center transition-colors"
+        >
+          <h3
+            class="text-lg font-medium text-slate-500 dark:text-slate-400 mb-2"
+          >
+            Interview
+          </h3>
+          <p
+            id="interview-count"
+            class="text-4xl font-bold text-green-600 dark:text-green-400"
+          >
+            0
+          </p>
+        </div>
+
+        <div
+          class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col justify-center transition-colors"
+        >
+          <h3
+            class="text-lg font-medium text-slate-500 dark:text-slate-400 mb-2"
+          >
+            Rejected
+          </h3>
+          <p
+            id="rejected-count"
+            class="text-4xl font-bold text-red-600 dark:text-red-400"
+          >
+            0
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 mb-8 transition-colors"
+      >
+        <div
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6"
+        >
+          <h2 class="text-2xl font-bold text-slate-800 dark:text-white">
+            Available Jobs
+          </h2>
+          <p class="text-slate-500 dark:text-slate-400 mt-2 sm:mt-0">
+            <span id="tab-count" class="font-bold">0</span> jobs
+          </p>
+        </div>
+
+        <div class="flex gap-6 border-b border-slate-200 dark:border-slate-700">
+          <button
+            id="tab-all"
+            class="pb-3 px-1 active-tab transition-colors"
+            onclick="switchTab('All')"
+          >
+            All
+          </button>
+          <button
+            id="tab-interview"
+            class="pb-3 px-1 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"
+            onclick="switchTab('Interview')"
+          >
+            Interview
+          </button>
+          <button
+            id="tab-rejected"
+            class="pb-3 px-1 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"
+            onclick="switchTab('Rejected')"
+          >
+            Rejected
+          </button>
+        </div>
+      </section>
+
+      <section id="jobs-container" class="flex flex-col gap-6 mb-16"></section>
+
+      <section
+        id="empty-state"
+        class="hidden flex-col items-center justify-center py-20 text-center"
+      >
+        <div
+          class="w-24 h-24 bg-blue-100 dark:bg-slate-700 rounded-full flex items-center justify-center mb-4 transition-colors"
+        >
+          <i
+            class="fa-regular fa-file-lines text-4xl text-blue-500 dark:text-blue-400"
+          ></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">
+          No jobs available
+        </h3>
+        <p class="text-slate-500 dark:text-slate-400">
+          Check back soon for new job opportunities
+        </p>
+      </section>
+    </main>
+
+    <script src="JAT.js"></script>
+  </body>
 </html>
