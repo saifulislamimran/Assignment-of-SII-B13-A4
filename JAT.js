@@ -23,6 +23,8 @@ let jobsData = [
     { id: 8, companyName: "TechCorp Industries", position: "Senior Frontend Developer", location: "San Francisco, CA", type: "Full-time", salary: "$130,000 - $175,000", description: "We are looking for an experienced Frontend Developer to build scalable web applications using React and TypeScript. You will work with a talented team.", status: "none" }
 ];
 
+let currentTab = 'All';
+
 function updateDashboardCounts() {
     const totalCountEl = document.getElementById('total-count');
     const interviewCountEl = document.getElementById('interview-count');
@@ -133,4 +135,32 @@ function renderJobs(jobsArray) {
     }
 }
 
-renderJobs(jobsData);
+function switchTab(tabName) {
+    currentTab = tabName;
+
+    const tabs = ['All', 'Interview', 'Rejected'];
+    tabs.forEach(tab => {
+        const btn = document.getElementById(`tab-${tab.toLowerCase()}`);
+        if (tab === tabName) {
+            btn.classList.add('active-tab');
+            btn.classList.remove('text-slate-500', 'dark:text-slate-400');
+        } else {
+            btn.classList.remove('active-tab');
+            btn.classList.add('text-slate-500', 'dark:text-slate-400');
+        }
+    });
+
+
+    let filteredJobs = [];
+    if (tabName === 'All') {
+        filteredJobs = jobsData;
+    } else {
+        filteredJobs = jobsData.filter(job => job.status === tabName);
+    }
+
+    renderJobs(filteredJobs);
+}
+
+
+updateDashboardCounts();
+switchTab('All');
