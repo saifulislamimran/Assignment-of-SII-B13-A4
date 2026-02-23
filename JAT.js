@@ -23,6 +23,37 @@ let jobsData = [
     { id: 8, companyName: "TechCorp Industries", position: "Senior Frontend Developer", location: "San Francisco, CA", type: "Full-time", salary: "$130,000 - $175,000", description: "We are looking for an experienced Frontend Developer to build scalable web applications using React and TypeScript. You will work with a talented team.", status: "none" }
 ];
 
+function updateDashboardCounts() {
+    const totalCountEl = document.getElementById('total-count');
+    const interviewCountEl = document.getElementById('interview-count');
+    const rejectedCountEl = document.getElementById('rejected-count');
+
+    const totalJobs = jobsData.length;
+    const interviewJobs = jobsData.filter(job => job.status === 'Interview').length;
+    const rejectedJobs = jobsData.filter(job => job.status === 'Rejected').length;
+
+    totalCountEl.innerText = totalJobs;
+    interviewCountEl.innerText = interviewJobs;
+    rejectedCountEl.innerText = rejectedJobs;
+}
+
+function updateJobStatus(jobId, newStatus) {
+    const jobIndex = jobsData.findIndex(job => job.id === jobId);
+    
+    if (jobIndex !== -1) {
+        jobsData[jobIndex].status = newStatus;
+        updateDashboardCounts();
+        switchTab(currentTab); 
+    }
+}
+
+function deleteJob(jobId) {
+    jobsData = jobsData.filter(job => job.id !== jobId);
+    
+    updateDashboardCounts(); 
+    switchTab(currentTab);   
+}
+
 function renderJobs(jobsArray) {
     const jobsContainer = document.getElementById('jobs-container');
     const emptyState = document.getElementById('empty-state');
